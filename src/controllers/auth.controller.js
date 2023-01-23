@@ -24,3 +24,12 @@ export const signIn = async (req, res) => {
     res.status(500).send({ message: "Erro no servidor!" });
   }
 };
+export const logout = async (req, res) => {
+  const { userId } = res.locals;
+  try {
+    await db.collection("sessions").deleteMany({ userId });
+    res.sendStatus(202);
+  } catch (error) {
+    res.status(500).send({ message: "Erro no servidor!" });
+  }
+};

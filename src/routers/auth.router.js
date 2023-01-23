@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { signIn, signUp } from "../controllers/auth.controller.js";
+import { logout, signIn, signUp } from "../controllers/auth.controller.js";
 import {
+  authValidation,
   userValidation,
   userVerification,
 } from "../middlewares/auth.middleware.js";
@@ -21,5 +22,5 @@ authRouter.post(
   userVerification,
   signUp
 );
-
+authRouter.delete("/logout", authValidation, logout);
 export default authRouter;
