@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { cashEntry, cashOutflow } from "../controllers/cashFlow.controller.js";
+import { cashEntry, cashOutflow, getCashFlow } from "../controllers/cashFlow.controller.js";
 import { authValidation } from "../middlewares/auth.middleware.js";
 import validateSchema from "../middlewares/global.middleware.js";
 import { cashFlowRegistrationSchema } from "../schemas/CashFlowSchema.js";
@@ -17,4 +17,5 @@ cashFlowRouter.post(
     validateSchema(cashFlowRegistrationSchema),
     cashOutflow
   );
+cashFlowRouter.get("/cashflow", getCashFlow)
 export default cashFlowRouter;
