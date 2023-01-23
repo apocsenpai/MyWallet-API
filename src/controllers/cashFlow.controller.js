@@ -35,3 +35,29 @@ export const deleteCashFlow = async (req, res) => {
     res.status(500).send({ message: "Erro no servidor!" });
   }
 };
+export const getCashFlowById = async (req, res) => {
+  const { registryId } = req.params;
+  try {
+    const cashFlow = await db
+      .collection("cashflow")
+      .findOne({ _id: ObjectId(registryId) });
+    res.status(200).send({ ...cashFlow });
+  } catch (error) {
+    res.status(500).send({ message: "Erro no servidor!" });
+  }
+};
+export const updateCashFlowRegistry = async (req, res) => {
+  const { registryId } = req.params;
+  const { amount, description } = req.body;
+  try {
+    await db
+      .collection("cashflow")
+      .updateOne(
+        { _id: ObjectId(registryId) },
+        { $set: { amount, description } }
+      );
+    res.sendStatus(200);
+  } catch (error) {
+    res.status(500).send({ message: "Erro no servidor!" });
+  }
+};
