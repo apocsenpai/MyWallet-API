@@ -1,9 +1,10 @@
 import db from "../db/db.js";
 import dayjs from "dayjs";
+import { sanitizeCashFlowRegistry } from "../sanitizers/cashFlow.sanatizer.js";
 export const registerClashFlow = async (req, res) => {
   const { userId } = res.locals;
   const registry = {
-    ...req.body,
+    ...sanitizeCashFlowRegistry(req.body),
     userId,
     date: dayjs().format("DD/MM"),
   };

@@ -6,9 +6,12 @@ export const signInSchema = Joi.object({
 });
 
 export const signUpSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
-  confirmedPassword: Joi.string().valid(Joi.ref("password")).required(),
+  name: Joi.string().max(20).min(2).required(),
+  email: Joi.string().email().max(40).min(8).required(),
+  password: Joi.string().max(20).min(8).required(),
+  confirmedPassword: Joi.string()
+    .valid(Joi.ref("password"))
+    .max(20)
+    .min(8)
+    .required(),
 });
-

@@ -1,9 +1,9 @@
 import db from "../db/db.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidV4 } from "uuid";
-
+import { sanitizeSignUp } from "../sanitizers/auth.sanatizer.js";
 export const signUp = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password } = sanitizeSignUp(req.body);
   const hashedPassword = bcrypt.hashSync(password, 10);
   try {
     await db
