@@ -1,6 +1,7 @@
 import db from "../db/db.js";
 import dayjs from "dayjs";
 import { sanitizeCashFlowRegistry } from "../sanitizers/cashFlow.sanatizer.js";
+import { ObjectId } from "mongodb";
 export const registerClashFlow = async (req, res) => {
   const { userId } = res.locals;
   const registry = {
@@ -21,6 +22,15 @@ export const getCashFlow = async (req, res) => {
     const { name } = await db.collection("users").findOne({ _id: userId });
     const cashFlow = await db.collection("cashflow").find({ userId }).toArray();
     res.status(200).send({ cashFlow, name });
+  } catch (error) {
+    res.status(500).send({ message: "Erro no servidor!" });
+  }
+};
+export const deleteCashFlow = async (req, res) => {
+  const { registryId } = req.params;
+  try {
+    await db.collection("cashflow").deleteOne({ _id: ObjectId(registryId) });
+    res.status(202).send({ message: "Deletado com sucesso!" });
   } catch (error) {
     res.status(500).send({ message: "Erro no servidor!" });
   }

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  deleteCashFlow,
   getCashFlow,
   registerClashFlow,
 } from "../controllers/cashFlow.controller.js";
@@ -15,5 +16,6 @@ cashFlowRouter.post(
   validateSchema(cashFlowRegistrationSchema),
   registerClashFlow
 );
+cashFlowRouter.delete("/cashflow/:registryId", deleteCashFlow);
 cashFlowRouter.get("/cashflow", getCashFlow);
 export default cashFlowRouter;
